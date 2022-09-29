@@ -43,7 +43,7 @@ describe('Persistent Node Chat Server', () => {
 
         /* TODO: You might have to change this test to get all the data from
          * your message table, since this is schema-dependent. */
-        const queryString = 'SELECT * FROM mainchatroom';
+        const queryString = 'SELECT * FROM mainchatroom;';
         const queryArgs = [];
 
         dbConnection.query(queryString, queryArgs, (err, results) => {
@@ -54,7 +54,7 @@ describe('Persistent Node Chat Server', () => {
           expect(results.length).toEqual(1);
 
           // TODO: If you don't have a column named text, change this test.
-          expect(results[0].messages).toEqual(message);
+          expect(results[0].message).toEqual(message);
           done();
         });
       })
@@ -78,7 +78,7 @@ describe('Persistent Node Chat Server', () => {
       axios.get(`${API_URL}/messages`)
         .then((response) => {
           const messageLog = response.data;
-          expect(messageLog[0].text).toEqual(message);
+          expect(messageLog[0].messages).toEqual(messages);
           expect(messageLog[0].roomname).toEqual(roomname);
           done();
         })
